@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import Type from '../models/Type';
 import Group from '../models/Group';
 import Marca from '../models/Marca';
+import State from '../models/State';
+import Size from '../models/Size';
+import Color from '../models/Color';
 
 class PropertiesController {
     
@@ -28,7 +31,7 @@ class PropertiesController {
         });
 
         type.save((err, typeDB) => {
-            if(err) return res.status(400).json({
+            if(err) return res.status(500).json({
                 ok: false,
                 message: 'Error al crear tipos de herramientas',
                 err
@@ -44,7 +47,7 @@ class PropertiesController {
 
     public getGroup(req: Request, res: Response) {
         Group.find({})
-        .exec((err, typeDB) => {
+        .exec((err, groupDB) => {
             if(err) return res.status(400).json({
                 ok: false,
                 message: 'Error al buscar los grupos de herramientas',
@@ -53,7 +56,7 @@ class PropertiesController {
 
             res.json({
                 ok: true,
-                types: typeDB
+                groups: groupDB
             })
         });
     }
@@ -65,7 +68,7 @@ class PropertiesController {
         });
 
         grupo.save((err, groupDB) => {
-            if(err) return res.status(400).json({
+            if(err) return res.status(500).json({
                 ok: false,
                 message: 'Error al crear grupo de herramientas',
                 err
@@ -81,7 +84,7 @@ class PropertiesController {
 
     public getMarcas(req: Request, res: Response) {
         Marca.find({})
-        .exec((err, typeDB) => {
+        .exec((err, marcasDB) => {
             if(err) return res.status(400).json({
                 ok: false,
                 message: 'Error al buscar las marcas de herramientas',
@@ -90,7 +93,7 @@ class PropertiesController {
 
             res.json({
                 ok: true,
-                types: typeDB
+                marcas: marcasDB
             })
         });
     }
@@ -102,7 +105,7 @@ class PropertiesController {
         });
 
         marca.save((err, marcaDB) => {
-            if(err) return res.status(400).json({
+            if(err) return res.status(500).json({
                 ok: false,
                 message: 'Error al crear grupo de herramientas',
                 err
@@ -112,6 +115,111 @@ class PropertiesController {
                 ok: true,
                 message: 'Grupo Guardado exitosamente',
                 marca: marcaDB
+            });
+        });
+    }
+
+    public getStates(req: Request, res: Response) {
+        State.find({})
+             .exec((err, statesDB) => {
+                if(err) return res.status(400).json({
+                    ok: false,
+                    err
+                });
+
+                res.json({
+                    ok: true,
+                    states: statesDB
+                })
+             });
+    }
+
+    public saveState(req: Request, res: Response) {
+        let estado = req.body.name;
+
+        const state = new State({
+            name: estado
+        });
+
+        state.save((err, stateDB) => {
+            if(err) return res.status(500).json({
+                ok: true,
+                err
+            });
+
+            res.status(201).json({
+                ok: true,
+                state: stateDB
+            });
+        });
+
+    }
+
+    public getSizes (req: Request, res: Response) {
+        Size.find()
+            .exec((err, SizesDB) => {
+                if(err) 
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+
+                res.json({
+                    ok: true,
+                    sizes: SizesDB
+                });
+            });
+    }
+
+    public saveSize(req: Request, res: Response) {
+        let tamaño = req.body.name;
+        const size = new Size({
+            name: tamaño
+        });
+
+        size.save((err, sizesDB) => {
+            if(err) return res.status(500).json({
+                ok: false,
+                err
+            });
+
+            res.json({
+                ok: true,
+                sizes: sizesDB
+            });
+        });
+    }
+
+    public getColors (req: Request, res: Response) {
+        Color.find()
+             .exec((err, colorsDB) => {
+                if(err) return res.status(500).json({
+                    ok: false,
+                    err
+                });
+
+                res.json({
+                    ok: true,
+                    colors: colorsDB
+                });
+             });
+    }
+
+    public saveColor (req: Request, res: Response) {
+        let colorH = req.body.name;
+        const color = new Color({
+            name: colorH
+        });
+
+        color.save((err, colorsDB) => {
+            if(err) return res.status(500).json({
+                ok: false,
+                err
+            });
+
+            res.json({
+                ok: true,
+                colors: colorsDB
             });
         });
     }

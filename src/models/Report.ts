@@ -5,6 +5,7 @@ const reportSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        default: '5e53d8777f40ae158784046f',
         required: [true, 'El ID del usuario es necesario']
     },
     inventoryId: {
@@ -17,7 +18,7 @@ const reportSchema = new Schema({
         required: [true, 'La descripcion es necesario']
     },
     createdAt: {
-        type: Date,
+        type: String,
         required: true,
         default: format(new Date(), 'YYYY MM DD hh:mm:ssa')
     }

@@ -8,33 +8,38 @@ const inventorySchema = new Schema({
         lowercase: true
     },
     createdAt: {
-        type: Date,
+        type: String,
         required: true,
         default: format(new Date(), 'YYYY MM DD hh:mm:ssa')
     },
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        default: '5e53d8777f40ae158784046f',
         required: [true, 'El id del usuario es necesario']
     },
-    marcaId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Marca',
+    marca: {
+        type: String,
         required: [true, 'El ID de la marca es necesario']
     },
-    typeId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Tipo',
+    type: {
+        type: String,
         required: [true, 'El ID del tipo es necesario']
     },
-    groupId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Grupo',
+    group: {
+        type: String,
         required: [true, 'EL ID del grupo es necesario']
     },
-    locationId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Location',
+    size: {
+        type: String,
+        required: [true, 'El tamaño es necesario']
+    },
+    color: {
+        type: String,
+        required: [true, 'El color es necesario']
+    },
+    location: {
+        type: String,
         required: [true, 'El ID de la ubicacion es necesario']
     },
     state: {

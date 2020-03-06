@@ -5,15 +5,13 @@ const locationSchema = new Schema({
         type: String,
         required: [true, 'EL contenedor es necesario']
     },
-    place: {
-        type: {
-            type: String,
-            required: [true, 'El lugar es necesario']
-        }
+    lote: {
+        type: String,
+        required: [true, 'Es necesario la ubicacion']
     },
-    quantify: {
-        type: Number,
-        required: [true, 'Cantidad requeridad']
+    place: {
+        type: String,
+        required: [true, 'Es necesario la columna']
     }
 });
 

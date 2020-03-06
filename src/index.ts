@@ -4,17 +4,26 @@ import Server from "./server/server";
 import Mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import color from 'colors';
-
+import cors from 'cors';
+import express  from 'express';
+import path from 'path';
+import fileUploads from 'express-fileupload';
 config();
 const server = Server.instance;
+
+// CORS
+server.app.use(cors({origin: true, credentials: true}));
 
 // middleware
 server.app.use(bodyParser.urlencoded({extended: true}));
 server.app.use(bodyParser.json());
-morgan('dev');
+server.app.use(morgan('dev'));
 
 // Routes
 import './routes/router';
+
+// uploads image
+server.app.use('uploads', express.static(path.resolve('uploads')));
 
 // Conecting MongoDB
 try {
